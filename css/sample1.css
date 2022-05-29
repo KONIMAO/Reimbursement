@@ -1,0 +1,120 @@
+body{
+  color: #001858;
+}
+
+.scroll {
+  padding: 20px 10px;
+  max-width: 450px;
+  margin: 15px auto;
+  text-align: right;
+  font-size: 14px;
+  background: #fef6e4;
+  height: 600px;
+  overflow:auto;
+}
+
+h2{
+  text-align: center;
+  top: -2px;
+  position: fixed;
+  background-color: #fef6e4;
+  padding: auto;
+  width: 449px;
+}
+
+
+#delete{
+  border: none;
+  background: #8bd3dd;
+  cursor: pointer;
+}
+
+#delete:hover{
+	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+	transform: translateY(-0.1875em);
+}
+
+.input_area{
+  position: fixed;
+  top: 610px;
+  background-color: #fef6e4;
+  padding: 9px 9px;
+}
+
+#send{
+  background-color: #f582ae;
+  /* width: 5vh;
+  height: 5vh; */
+}
+
+.balloon6 {
+  width: 100%;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.balloon6 .faceicon {
+  float: left;
+  margin-right: -50px;
+  width: 40px;
+}
+
+.balloon6 .faceicon img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+.balloon6 .chatting {
+  width: 100%;
+  text-align: left;
+}
+.says {
+  display: inline-block;
+  position: relative; 
+  margin: 0 0 0 50px;
+  padding: 10px;
+  max-width: 250px;
+  border-radius: 12px;
+  background: #f3d2c1;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 3px; 
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #f3d2c1;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+.says p {
+  margin: 0;
+  padding: 0;
+}
+
+.mycomment {
+  margin: 10px 0;
+}
+.mycomment p {
+  display: inline-block;
+  position: relative; 
+  margin: 0 10px 0 0;
+  padding: 8px;
+  max-width: 250px;
+  border-radius: 12px;
+  background: #8bd3dd;
+  font-size: 15px:
+}
+
+.mycomment p:after {
+  content: "";
+  position: absolute;
+  top: 3px; 
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #8bd3dd;
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+}
