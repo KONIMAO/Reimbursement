@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Chatアプリ</title>
+<link rel="stylesheet" href="css/sample1.css">
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+<div class="scroll">
+    <h2 style="z-index:10000">立替メモ</h2>
+
+    <div>
+        <div id="output"></div>
+</div>
+
+<div class="input_area">
+    名目：<input type="text" id="uname">  
+      金額：<input type="number" id="amount">
+    <button id="send">📩</button>
+
+</div>
+
+<!--/ コンテンツ表示画面 -->
+
+
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+        from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.1/firebase-database.min.js";
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "fir-demo-9b0ef.firebaseapp.com",
+      projectId: "fir-demo-9b0ef",
+      storageBucket: "fir-demo-9b0ef.appspot.com",
+      messagingSenderId: "409057240360",
+      appId: "1:409057240360:web:f2aa929013c70fe0f65c1d"
+    };
+  
+    // API:  AIzaSyDtncYbuPsEy2WvNlzL34TYOavLjI0t82g
+    // Initialize Firebase 初期設定
+    const app = initializeApp(firebaseConfig);
+
+    const db = getDatabase(app);
+    // 参照先を切り分ける事が可能
+    const dbRef = ref(db, 'chat');
+    // 送信ボタン
+    $('#send').on('click',function(){
+        const msg={
+            time: {datetime:firebase.database.ServerValue.TIMESTAMP},
+            uname: $('#uname').val(),
+            amount: $('#amount').val(),
+        }
+        const newPostRef =push(dbRef);
+        set(newPostRef,msg);
+        // set({datetime:firebase.database.ServerValue.TIMESTAMP});
+    });
+
+    // 画面に表示
+    let amounts =[];
+    let total=0;
+
+
+    onChildAdded(dbRef, function(data){
+ 
+        const msg = data.val();
+        const key =data.key;
+
+        let num = Number(msg.amount)
+        amounts.push(num);
+
+        for(let i =0; i<amounts.length;i++){
+        total = total + amounts[i]
+        }
+      console.log(total);
+
+        const h = `  <div class="mycomment">
+        <p id="${key}" class="message">${msg.uname}：${msg.amount}円 <button id="delete">🗑</button></p>
+  </div>
+        
+        <div class="balloon6"><div class="faceicon"><img src="./imgs/buke.png" alt=""></div>
+    <div class="chatting"><div class="says">
+        <p> 合計で${total}円立替中！</p>
+        </div>
+    </div></div>`
+        $('#output').append(h);
+        total =0
+        // document.getElementById('total_amount').innerHTML= `現在の立替合計金額：${total}円`
+
+
+
+
+    });
+
+
+
+    // Enterボタンで送信
+    $('#amount').on('keydown', function(e){
+        if (e.keyCode===13){
+        const msg={
+            uname: $('#uname').val(),
+            amount: $('#amount').val(),
+        }
+        const newPostRef =push(dbRef);
+        set(newPostRef,msg);
+    }});
+
+    // 削除ボタン
+    $('#output').on('click','.message', function(){
+        var delete_id = $(this).attr('id');
+        // console.log(delete_id);
+        remove(ref(db,`chat/${delete_id}`));
+        location.reload();
+});
+
+    // 削除されたid取得、HTML要素削除
+    onChildRemoved(dbRef, function(data){
+        const delete_key ='#'+ data.key;
+        // console.log(delete_key);
+        $(delete_key).remove();
+    });
+
+
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
