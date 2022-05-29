@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/sample.css">
+<title>GoogleBook検索</title>
+</head>
+<body>
+
+  <header>
+    <h1>GoogleBooks検索</h1>
+    <p>
+      <input type="text" id="keyword" value="レスポンシブWeb">
+      <button id="readbook">データ読み込み</button>
+    </p>
+  </header>
+
+  <main>
+    <p id="content"></p>
+  </main>
+
+
+<script src="js/jquery-3.5.1.min.js"></script>
+<script>
+const url = 'https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20170426?applicationId=1024176185203494186&format=json&latitude=126611.94&longitude=492868.91&searchRadius=0.5';
+
+$.get(url, function(data){
+    // console.log(data);
+    const hotels =data.hotels
+    for (let i = 0; i < hotels.length; i++) {
+    console.log(hotels[i]);
+    const name= hotels[i].hotel.hotelBasicInfo;
+    console.log(name);
+    $('#content').append(`<ul><li>${name}</li></ul>`)
+}});
+    
+    
+</script>
+</body>
+</html>
